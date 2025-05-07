@@ -1,0 +1,83 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 215 80% 24%; /* Navy blue */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 174 47% 32%; /* Teal */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 174 47% 95%; /* Light teal */
+    --accent-foreground: 174 47% 32%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 215 80% 24%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer components {
+  .campus-card {
+    @apply bg-white rounded-lg shadow-md p-6 border border-gray-100 transition-all hover:shadow-lg;
+  }
+  
+  .campus-btn-primary {
+    @apply bg-campus-700 text-white px-6 py-2 rounded-md font-medium hover:bg-campus-800 transition-colors;
+  }
+  
+  .campus-btn-secondary {
+    @apply bg-teal-600 text-white px-6 py-2 rounded-md font-medium hover:bg-teal-700 transition-colors;
+  }
+  
+  .campus-input {
+    @apply rounded-md border border-gray-300 px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-campus-500 focus:border-transparent;
+  }
+  
+  .campus-select {
+    @apply rounded-md border border-gray-300 px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-campus-500 focus:border-transparent bg-white;
+  }
+  
+  .campus-heading {
+    @apply text-2xl sm:text-3xl font-bold text-campus-700 mb-4;
+  }
+  
+  .campus-subheading {
+    @apply text-xl font-semibold text-campus-600 mb-3;
+  }
+  
+  .campus-container {
+    @apply container mx-auto px-4 py-8 max-w-6xl;
+  }
+}
