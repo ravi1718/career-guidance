@@ -20,7 +20,7 @@ const CallToAction = () => {
               </Button>
             </Link>
             <Link to="/aptitude-test">
-              <Button size="lg" variant="outline" className="border-white hover:bg-white/10">
+              <Button size="lg" variant="outline" className="border-white text-blue-600 hover:bg-white/10">
                 Take Free Aptitude Test
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
