@@ -2,6 +2,12 @@
 
 This guide explains how to deploy the Career Guidance Application with separate frontend and backend deployments.
 
+## 🚀 Quick Start
+
+**For Vercel deployment**, see [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md) for a streamlined guide.
+
+**For other platforms**, continue with this guide.
+
 ## Environment Configuration
 
 ### Frontend Environment Variables

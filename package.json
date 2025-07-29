@@ -1,0 +1,17 @@
+{
+  "name": "career-guidance-app",
+  "version": "1.0.0",
+  "description": "Career Guidance Application - Full Stack",
+  "private": true,
+  "scripts": {
+    "setup": "node setup-env.js",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run deploy",
+    "install:all": "cd frontend && npm install && cd ../backend && npm install"
+  },
+  "keywords": ["career", "guidance", "education", "aptitude", "test"],
+  "author": "Career Guidance Team",
+  "license": "MIT"
+}
