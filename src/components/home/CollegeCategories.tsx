@@ -55,7 +55,7 @@ const CollegeCategories = () => {
                 <h3 className="font-bold text-xl mb-1">{category.title}</h3>
                 <p className="text-sm text-gray-200 mb-3">{category.count}+ institutions</p>
                 <Link to={category.link}>
-                  <Button variant="outline" className="text-white border-white hover:bg-white hover:text-campus-700 group-hover:translate-x-1 transition-transform">
+                  <Button variant="outline" className="text-blue-600 border-white hover:bg-white hover:text-campus-700 group-hover:translate-x-1 transition-transform">
                     Explore
                     <ChevronRight className="ml-1 h-4 w-4" />
                   </Button>

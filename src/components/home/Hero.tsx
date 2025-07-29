@@ -30,7 +30,7 @@ const Hero = () => {
               </Button>
             </Link>
             <Link to="/aptitude-test">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 min-w-[180px]">
+              <Button size="lg" variant="outline" className="border-white text-blue-600 hover:bg-white/10 min-w-[180px]">
                 Take Aptitude Test
               </Button>
             </Link>
