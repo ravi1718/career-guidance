@@ -39,32 +39,56 @@ FRONTEND_URL=https://your-frontend-deployment-url.vercel.app
 
 ### 1. Backend Deployment (Vercel)
 
-1. Deploy your backend to Vercel or any other hosting platform
-2. Set up environment variables in your hosting platform:
+1. Copy the example environment file and update it:
+
+   ```bash
+   cp backend/.env.production.example backend/.env.production
+   # Edit backend/.env.production with your actual values
+   ```
+
+2. Validate your backend configuration:
+
+   ```bash
+   cd backend
+   npm run deploy
+   ```
+
+3. Deploy your backend to Vercel or any other hosting platform
+
+4. Set up environment variables in your hosting platform:
 
    - `MONGODB_URI`: Your MongoDB connection string
    - `JWT_SECRET`: A secure JWT secret key
    - `NODE_ENV`: Set to "production"
    - `FRONTEND_URL`: Your frontend deployment URL (will be set after frontend deployment)
 
-3. Note the deployed backend URL (e.g., `https://your-backend.vercel.app`)
+5. Note the deployed backend URL (e.g., `https://your-backend.vercel.app`)
 
 ### 2. Frontend Deployment
 
-1. Update `frontend/.env.production` with your backend URL:
+1. Copy the example environment file and update it:
+
+   ```bash
+   cp frontend/.env.production.example frontend/.env.production
+   # Edit frontend/.env.production with your backend URL
+   ```
+
+2. Update `frontend/.env.production` with your backend URL:
 
    ```
    VITE_API_BASE_URL=https://your-backend.vercel.app
    ```
 
-2. Build and deploy the frontend:
+3. Build and deploy the frontend:
 
    ```bash
    cd frontend
-   npm run build
+   npm run build:prod  # For production with validation
+   # OR
+   npm run build      # For development (allows placeholder URLs)
    ```
 
-3. Deploy the `dist` folder to your hosting platform
+4. Deploy the `dist` folder to your hosting platform
 
 ### 3. Update Backend with Frontend URL
 

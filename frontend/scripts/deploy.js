@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Check if .env.production exists
 const envProductionPath = path.join(__dirname, "..", ".env.production");
@@ -22,12 +26,24 @@ const envContent = fs.readFileSync(envProductionPath, "utf8");
 const apiBaseUrl = envContent.match(/VITE_API_BASE_URL=(.+)/)?.[1];
 
 if (!apiBaseUrl || apiBaseUrl.includes("your-backend-deployment-url")) {
-  console.error("❌ Error: Please update VITE_API_BASE_URL in .env.production");
+  console.warn("⚠️  Warning: VITE_API_BASE_URL contains placeholder value");
   console.log("📝 Current content:", envContent);
   console.log(
-    "📝 Expected format: VITE_API_BASE_URL=https://your-actual-backend-url.vercel.app"
+    "📝 For production deployment, update to: VITE_API_BASE_URL=https://your-actual-backend-url.vercel.app"
   );
-  process.exit(1);
+
+  // Check if this is a test build (allow placeholder for development)
+  if (
+    process.env.NODE_ENV !== "development" &&
+    !process.argv.includes("--allow-placeholder")
+  ) {
+    console.error(
+      "❌ Error: Please update VITE_API_BASE_URL for production deployment"
+    );
+    process.exit(1);
+  }
+
+  console.log("🔧 Continuing with placeholder URL for development build...");
 }
 
 console.log("✅ Environment configuration looks good!");

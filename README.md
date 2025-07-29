@@ -139,6 +139,8 @@ The application uses a centralized API configuration that automatically:
 
 ## Environment Variables
 
+📋 **For detailed environment setup instructions, see [ENVIRONMENT_SETUP.md](./ENVIRONMENT_SETUP.md)**
+
 ### Frontend
 
 - `VITE_API_BASE_URL`: Base URL for API calls
@@ -150,7 +152,6 @@ The application uses a centralized API configuration that automatically:
 - `JWT_SECRET`: Secret key for JWT tokens
 - `NODE_ENV`: Environment (development/production)
 - `FRONTEND_URL`: Frontend application URL for CORS configuration
-- `NODE_ENV`: Environment (development/production)
 
 ## Contributing
 

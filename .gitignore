@@ -1,4 +1,51 @@
-# Logs
+# ===================================
+# Career Guidance Application
+# .gitignore file
+# ===================================
+
+# ===================================
+# ENVIRONMENT FILES (CRITICAL!)
+# Never commit these - they contain secrets
+# ===================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
+
+# Backend environment files
+backend/.env
+backend/.env.local
+backend/.env.development.local
+backend/.env.test.local
+backend/.env.production
+
+# Frontend environment files
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production
+
+# ===================================
+# DEPENDENCIES
+# ===================================
+node_modules/
+*/node_modules/
+jspm_packages/
+
+# ===================================
+# BUILD OUTPUTS
+# ===================================
+dist/
+dist-ssr/
+build/
+*/dist/
+*/build/
+
+# ===================================
+# LOGS
+# ===================================
 logs
 *.log
 npm-debug.log*
@@ -7,24 +54,88 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# ===================================
+# RUNTIME DATA
+# ===================================
+pids
+*.pid
+*.seed
+*.pid.lock
 
+# ===================================
+# COVERAGE & TESTING
+# ===================================
+coverage/
+*.lcov
+.nyc_output
 
+# ===================================
+# CACHES
+# ===================================
+.npm
+.eslintcache
+.cache
+.parcel-cache
+.vite
+.rollup.cache
 
+# ===================================
+# FRAMEWORK SPECIFIC
+# ===================================
+# Next.js
+.next
 
-backend/.env
-.env
+# Nuxt.js
+.nuxt
 
-# Editor directories and files
+# ===================================
+# PACKAGE MANAGERS
+# ===================================
+.yarn-integrity
+*.tgz
+
+# ===================================
+# TEMPORARY FILES
+# ===================================
+tmp/
+temp/
+.node_repl_history
+
+# ===================================
+# EDITOR & IDE
+# ===================================
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# ===================================
+# OPERATING SYSTEM
+# ===================================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ===================================
+# DEPLOYMENT
+# ===================================
+.vercel
+vercel.json.local
+
+# ===================================
+# DATABASE
+# ===================================
+*.db
+*.sqlite
+*.sqlite3
+
+# ===================================
+# MISC
+# ===================================
+*.tsbuildinfo
+*.local

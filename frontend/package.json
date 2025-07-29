@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/deploy.js && vite build",
+    "build": "node scripts/deploy.js --allow-placeholder && vite build",
     "build:dev": "vite build --mode development",
-    "build:prod": "vite build --mode production",
+    "build:prod": "NODE_ENV=production node scripts/deploy.js && vite build --mode production",
+    "build:skip-validation": "vite build --mode production",
     "lint": "eslint .",
     "preview": "vite preview"
   },
