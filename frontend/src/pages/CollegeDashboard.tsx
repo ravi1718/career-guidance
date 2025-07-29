@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Plus, Trash2, Edit2 } from 'lucide-react';
-import axios from 'axios';
+import api from '@/config/api';
 
 interface Question {
   _id: string;
@@ -51,7 +51,7 @@ const CollegeDashboard = () => {
   const fetchQuestions = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get('/api/aptitude/questions/college');
+      const response = await api.get('/api/aptitude/questions/college');
       setQuestions(response.data);
     } catch (error) {
       console.error('Failed to fetch questions:', error);
@@ -76,8 +76,8 @@ const CollegeDashboard = () => {
         return;
       }
 
-      await axios.post('/api/aptitude/questions', newQuestion);
-      
+      await api.post('/api/aptitude/questions', newQuestion);
+
       toast({
         title: "Success",
         description: "Question added successfully.",
@@ -104,8 +104,8 @@ const CollegeDashboard = () => {
 
   const handleToggleQuestion = async (questionId: string, isActive: boolean) => {
     try {
-      await axios.patch(`/api/aptitude/questions/${questionId}`, { isActive });
-      
+      await api.patch(`/api/aptitude/questions/${questionId}`, { isActive });
+
       toast({
         title: "Success",
         description: `Question ${isActive ? 'activated' : 'deactivated'} successfully.`,
@@ -124,8 +124,8 @@ const CollegeDashboard = () => {
 
   const handleDeleteQuestion = async (questionId: string) => {
     try {
-      await axios.delete(`/api/aptitude/questions/${questionId}`);
-      
+      await api.delete(`/api/aptitude/questions/${questionId}`);
+
       toast({
         title: "Success",
         description: "Question deleted successfully.",
@@ -148,7 +148,7 @@ const CollegeDashboard = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <h1 className="text-3xl font-bold text-campus-700 mb-8">College Dashboard</h1>
-            
+
             {/* Add New Question */}
             <Card className="mb-8">
               <CardHeader>
@@ -165,7 +165,7 @@ const CollegeDashboard = () => {
                       placeholder="Enter the question"
                     />
                   </div>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <Label>Category</Label>
@@ -183,7 +183,7 @@ const CollegeDashboard = () => {
                         </SelectContent>
                       </Select>
                     </div>
-                    
+
                     <div>
                       <Label>Difficulty</Label>
                       <Select
@@ -201,7 +201,7 @@ const CollegeDashboard = () => {
                       </Select>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label>Options</Label>
                     {newQuestion.options.map((option, index) => (
@@ -223,7 +223,7 @@ const CollegeDashboard = () => {
                       </div>
                     ))}
                   </div>
-                  
+
                   <Button onClick={handleAddQuestion} className="w-full">
                     <Plus className="mr-2 h-4 w-4" />
                     Add Question
@@ -231,7 +231,7 @@ const CollegeDashboard = () => {
                 </div>
               </CardContent>
             </Card>
-            
+
             {/* Question List */}
             <Card>
               <CardHeader>
@@ -275,9 +275,8 @@ const CollegeDashboard = () => {
                           {question.options.map((option, index) => (
                             <div
                               key={index}
-                              className={`flex items-center space-x-2 ${
-                                index === question.correctAnswer ? 'text-green-600' : ''
-                              }`}
+                              className={`flex items-center space-x-2 ${index === question.correctAnswer ? 'text-green-600' : ''
+                                }`}
                             >
                               <span className="w-4">{index + 1}.</span>
                               <span>{option}</span>

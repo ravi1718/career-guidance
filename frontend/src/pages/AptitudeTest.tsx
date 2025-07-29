@@ -7,7 +7,7 @@ import TestInstructions from '@/components/aptitude-test/TestInstructions';
 import QuestionCard, { Question } from '@/components/aptitude-test/QuestionCard';
 import TestResults from '@/components/aptitude-test/TestResults';
 import QuestionManager from '@/components/aptitude-test/QuestionManager';
-import axios from 'axios';
+import api from '@/config/api';
 
 enum TestStage {
   INSTRUCTIONS,
@@ -81,7 +81,7 @@ const AptitudeTest = () => {
   const handleStartTest = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get('/api/aptitude/questions');
+      const response = await api.get('/api/aptitude/questions');
       
       if (!response.data || response.data.length === 0) {
         throw new Error('No questions available');
@@ -141,7 +141,7 @@ const AptitudeTest = () => {
         selectedAnswer: questions[parseInt(index)].options.indexOf(answer)
       }));
 
-      const response = await axios.post('/api/aptitude/submit', {
+      const response = await api.post('/api/aptitude/submit', {
         answers: formattedAnswers
       });
 

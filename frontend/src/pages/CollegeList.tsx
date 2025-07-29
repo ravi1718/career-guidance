@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '@/config/api';
 import Layout from '@/components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -46,7 +46,7 @@ const CollegeList = () => {
           url += `/${state}`;
         }
       }
-      const response = await axios.get(url);
+      const response = await api.get(url);
       setColleges(response.data);
     } catch (error) {
       console.error('Failed to fetch colleges:', error);

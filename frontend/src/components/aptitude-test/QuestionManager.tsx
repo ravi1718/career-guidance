@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import axios from 'axios';
+import api from '@/config/api';
 
 interface Question {
   _id: string;
@@ -34,7 +34,7 @@ const QuestionManager = () => {
   const fetchQuestions = async () => {
     try {
       setIsFetching(true);
-      const response = await axios.get('/api/aptitude/questions');
+      const response = await api.get('/api/aptitude/questions');
       setQuestions(response.data);
     } catch (error) {
       console.error('Failed to fetch questions:', error);
@@ -80,7 +80,7 @@ const QuestionManager = () => {
         throw new Error('All options must be filled');
       }
 
-      const response = await axios.post('/api/aptitude/questions', newQuestion);
+      const response = await api.post('/api/aptitude/questions', newQuestion);
       
       setQuestions(prev => [response.data, ...prev]);
       setNewQuestion({

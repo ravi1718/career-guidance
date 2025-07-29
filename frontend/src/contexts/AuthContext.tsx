@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '@/config/api';
 
 interface User {
   id: string;
@@ -32,14 +32,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (storedToken && storedUser) {
       setToken(storedToken);
       setUser(JSON.parse(storedUser));
-      // Set the token in axios headers
-      axios.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
+      // Token will be automatically added by the API interceptor
     }
   }, []);
 
   const login = async (email: string, password: string, userType: 'student' | 'college') => {
     try {
-      const response = await axios.post('/api/auth/login', {
+      const response = await api.post('/api/auth/login', {
         email,
         password,
         userType
@@ -51,8 +50,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
       
-      // Set the token in axios headers
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      // Token will be automatically added by the API interceptor
       
       setToken(token);
       setUser(user);
@@ -64,7 +62,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const register = async (data: any, userType: 'student' | 'college') => {
     try {
-      const response = await axios.post(`/api/auth/register/${userType}`, data);
+      const response = await api.post(`/api/auth/register/${userType}`, data);
 
       const { token, user } = response.data;
       
@@ -72,8 +70,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
       
-      // Set the token in axios headers
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      // Token will be automatically added by the API interceptor
       
       setToken(token);
       setUser(user);
@@ -88,8 +85,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     
-    // Remove token from axios headers
-    delete axios.defaults.headers.common['Authorization'];
+    // Token removal is handled by the API interceptor
     
     setToken(null);
     setUser(null);
@@ -113,4 +109,4 @@ export const useAuth = () => {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
-}; 
+};
