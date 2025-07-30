@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
+import api from "@/config/api";
 
 const formSchema = z.object({
   firstName: z.string().min(2, { message: "First name must be at least 2 characters" }),
@@ -29,7 +30,7 @@ const StudentSignupForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { login } = useAuth();
-  
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,27 +46,19 @@ const StudentSignupForm = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await fetch('/api/auth/register/student', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          password: data.password,
-          phone: data.phone,
-          location: 'Not Specified', // We'll add location selection later
-          educationLevel: data.educationLevel
-        }),
+      const response = await api.post('/api/auth/register/student', {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        password: data.password,
+        phone: data.phone,
+        location: 'Not Specified', // We'll add location selection later
+        educationLevel: data.educationLevel
       });
 
-      const result = await response.json();
+      const result = response.data;
 
-      if (!response.ok) {
-        throw new Error(result.message || 'Registration failed');
-      }
+      // Axios automatically handles HTTP errors, so we don't need to check response.ok
 
       // Log the user in automatically after successful registration
       await login(data.email, data.password, 'student');
@@ -90,7 +83,7 @@ const StudentSignupForm = () => {
   return (
     <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
       <h2 className="text-2xl font-bold text-campus-700 mb-6 text-center">Create Student Account</h2>
-      
+
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -107,7 +100,7 @@ const StudentSignupForm = () => {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="lastName"
@@ -122,7 +115,7 @@ const StudentSignupForm = () => {
               )}
             />
           </div>
-          
+
           <FormField
             control={form.control}
             name="email"
@@ -136,7 +129,7 @@ const StudentSignupForm = () => {
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="phone"
@@ -150,7 +143,7 @@ const StudentSignupForm = () => {
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="educationLevel"
@@ -174,7 +167,7 @@ const StudentSignupForm = () => {
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="password"
@@ -188,7 +181,7 @@ const StudentSignupForm = () => {
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="confirmPassword"
@@ -202,11 +195,11 @@ const StudentSignupForm = () => {
               </FormItem>
             )}
           />
-          
+
           <Button type="submit" className="w-full bg-campus-700 hover:bg-campus-800">
             Create Account
           </Button>
-          
+
           <div className="text-center text-sm text-gray-600">
             Already have an account?{" "}
             <Link to="/login" className="text-campus-600 hover:text-campus-700 font-medium">

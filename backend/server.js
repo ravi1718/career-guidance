@@ -48,6 +48,39 @@ app.use((req, res, next) => {
   next();
 });
 
+// Health check endpoint
+app.get("/api/health", async (req, res) => {
+  try {
+    // Check database connection
+    const dbState = mongoose.connection.readyState;
+    const dbStates = {
+      0: "disconnected",
+      1: "connected",
+      2: "connecting",
+      3: "disconnecting",
+    };
+
+    res.json({
+      status: "ok",
+      timestamp: new Date().toISOString(),
+      database: {
+        state: dbStates[dbState],
+        uri: process.env.MONGODB_URI ? "configured" : "not configured",
+      },
+      environment: process.env.NODE_ENV,
+      cors: {
+        allowedOrigins: allowedOrigins,
+        frontendUrl: process.env.FRONTEND_URL,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+});
+
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/colleges", collegeRoutes);
